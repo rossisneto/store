@@ -5,12 +5,14 @@ if(process.env.NODE_ENV !=='production'){
 const express = require('express')
 const app = express()
 
-app.get('/', (req,res)=>{
-    res.end("Servidor ativo")
-})
+//Importando routers
+const indexRouter = require('./routes/index')
+const produtosRouter = require('./routes/produtos')
 
-app.get('/produtos', (req,res)=>{
-    res.end("Esta eh a nossa pagina de produtos")
-})
+//Habilitando as rotas
+app.use(express.static('public'))
+app.use('/', indexRouter)
+app.use('/produtos', produtosRouter)
 
+//Iniciando o servidor
 app.listen(process.env.PORT, console.log("servidor iniciado"))
